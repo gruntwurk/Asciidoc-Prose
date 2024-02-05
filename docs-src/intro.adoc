@@ -5,7 +5,7 @@ This guide is presented in two parts.
 The first several chapters are detailed rundowns of the features introduced by this package -- what they are and how to invoke them.
 
 The latter chapters are workflow guides.
-They discuss comprehensive ways to make the most out of this package -- in conjunction with the built-in features of ST4 and the ST4-Asciidoctor package.
+They discuss comprehensive ways to make the most out of this package -- in conjunction with the built-in features of ST4 and the https://github.com/tajmone/ST4-Asciidoctor[ST4-Asciidoctor^, title="Visit the package repository at GitHub"] package.
 
 
 

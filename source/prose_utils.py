@@ -1,5 +1,5 @@
 """
-General-Purpose Utilities for the AsciiDoc_Prose package.
+General-Purpose Utilities for the AsciiDoc-Prose package.
 """
 
 import re

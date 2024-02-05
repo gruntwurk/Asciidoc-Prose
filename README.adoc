@@ -18,8 +18,8 @@ See the <<user-guide,user guide>> for details on these, as well as a full list o
 First off, we introduce a number of "`Daily Shortcuts`" for working with small amounts of selected text:
 
 - *Transpose* selected text. For example, `Janet gave the basket to George` becomes `George gave the basket to Janet`, or `half-right` becomes `right-half`.
-- *Create AsciiDoc links* around selected text. For example, `Star Wars` becomes ``<<````star-wars,Star Wars>>``.
-- *Create AsciiDoc index notation* around selected text. For example, `Star Wars` becomes ``(((````Star Wars)))``.
+- *Create AsciiDoc links* around selected text. For example, `Star Wars` becomes ``<<`` ``star-wars,Star Wars>>``.
+- *Create AsciiDoc index notation* around selected text. For example, `Star Wars` becomes ``(((`` ``Star Wars)))``.
 - Convert the selected text from *CamelCase* to *snake_case* and vice versa.
 - Convert an inline quotation to an *AsciiDoc quote block*, e.g. `Eureka! -- Archimedes` becomes `[quote, Archimedes.]\nEureka!`.
 
@@ -63,7 +63,7 @@ For *editors and publishers* who have standardized on using AsciiDoc, these powe
 == Status
 
 This package is functional, but enhancements are pending.
-See the https://github.com/gruntwurk/Asciidoc_Prose/issues/new/choose[issues page].
+See the https://github.com/gruntwurk/Asciidoc-Prose/issues[issues page].
 
 
 
@@ -79,9 +79,9 @@ Therefore, it must be manually installed, via Git:
 * Linux: `~/.config/sublime-text-3/Packages/`
 * Windows: `%APPDATA%\Sublime Text 3\Packages\`
 
-2. From that directory, invoke Git to clone this repository into the `Asciidoc_Prose` subdirectory:
+2. From that directory, invoke Git to clone this repository into the `Asciidoc-Prose` subdirectory:
 
-    git clone https://github.com/gruntwurk/Asciidoc_Prose.git Asciidoc_Prose
+    git clone https://github.com/gruntwurk/Asciidoc-Prose.git Asciidoc-Prose
 
 3. Restart SublimeText.
 
@@ -90,7 +90,7 @@ Therefore, it must be manually installed, via Git:
 [[contributing]]
 == Contributing
 
-Any contribution to this project is most welcome, whether it's a suggestion submitted by https://github.com/gruntwurk/Ascii_Prose/issues/new/choose[opening a new issue], or contributions to the code via pull requests using Git.
+Any contribution to this project is most welcome, whether it's a suggestion submitted by https://github.com/gruntwurk/Asciidoc-Prose/issues/new/choose[opening a new issue], or contributions to the code via pull requests using Git.
 
 
 
@@ -111,11 +111,18 @@ For the full text of the license, see the link:LICENSE[LICENSE file]
 
 == Further Info
 
+[[user-guide]]
+=== Asciidoc-Prose User Guide (This Package)
+
+* https://gruntwurk.github.io/Asciidoc-Prose[]
+
+
 [[st4-asciidoctor]]
 === The ST4-Asciidoctor Package
 
 Adds <<asciidoc,AsciiDoc>> support to <<sublime,SublimeText 4>> -- specifically, <<asciidoctor,Asciidoctor>>-flavored support.
 It provides syntax highlighting, dozens of snippets and commands, and other basics for working with AsciiDoc).
+This package pretty much counts on ST4-Asciidoctor being installed as well.
 
 * https://github.com/tajmone/ST4-Asciidoctor[]
 

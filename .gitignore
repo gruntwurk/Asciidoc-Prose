@@ -1,3 +1,6 @@
 /__pycache__/*.pyc
 /tests/__pycache__
 /.vscode
+/docs-src/index.html
+/README.html
+/Color_Schemes/*.chback

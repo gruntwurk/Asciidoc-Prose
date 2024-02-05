@@ -1,0 +1,138 @@
+<snippet>
+    <description>Murder Board for Story Outlining</description>
+    <content><![CDATA[= ${1:Story Title} -- Murder Board
+${2:Author Name} <${3:Author Email}>
+:copyright: (c) $2, ${4:Year}. All rights reserved.
+:backend: html5
+:theme: flask
+
+{copyright}
+
+
+
+== Sections
+
+// Press (F12) to jump
+
+* <<structure,STORY STRUCTURE>>
+* <<tagline,TAGLINE>>
+* <<pitch,PITCH>>
+* <<timeline,TIMELINE>>
+* <<hooks,HOOKS>>/PROMISES
+* <<ideas,IDEAS>> (problems, plot twists, issues, red herrings)
+* <<characters,CHARACTERS>>
+* <<places,PLACES>>
+* <<wardrobe,WARDROBE>> AND ACCOUTREMENTS
+* <<gadgets,GADGETS>>
+* <<checklists,CHECKLISTS>> (ANTS, Signpost Scenes)
+
+
+
+== Available Templates (Snippets)
+
+* murder(Tab) -- This Murder Board
+* char(Tab) -- Character Sheet
+* place(Tab) -- Location Description
+* scene(Tab) -- Scene Card (aka. Sequence Card)
+
+
+[[structure]]
+== STORY STRUCTURE (dominant)
+
+* *Milieu story*: The main character is changed by his exposure to a strange new world
+* *Idea story*: Begins by raising a question (discovering new information) and ends by answering it (knowing what the new info means).
+* *Character story*: Begins when the main character is so unhappy, impatient, or angry that change is initiated and ends when the character settles into a new role (happy or not) or gives up the struggle and remains in the old role (happy or not).
+* Or, *Event story*: Before the story begins, an event disrupts the fabric of the universe. The story begins when the main character first gets involved in the struggle. The story ends when a new order is established (or the old order is restored, or total anarchy reigns). (e.g. on p. 99)
+
+
+[[tagline]]
+== TAGLINE
+
+$0
+
+[[pitch]]
+== PITCH
+
+
+
+[[timeline]]
+== TIMELINE
+
+=== Relevant World History
+
+=== Backstory Events
+
+=== Story Events
+
+
+
+[[hooks]]
+== HOOKS/PROMISES
+
+
+
+[[ideas]]
+== IDEAS (problems, plot twists, issues, red herrings)
+
+
+
+[[characters]]
+== CHARACTERS
+
+
+
+[[places]]
+== PLACES
+
+
+
+[[wardrobe]]
+== WARDROBE AND ACCOUTREMENTS
+
+
+
+[[gadgets]]
+== GADGETS
+
+
+
+[[checklists]]
+== CHECKLISTS
+
+
+=== Descriptive Text
+
+For important descriptions, use 3 of the 5 senses: sight, sound, smell, feel, taste.
+
+
+=== ANTS
+
+* Attachment
+* Novelty
+* Tension
+* Satisfaction
+
+
+=== SIGNPOST SCENES
+
+Bell, James Scott (2014-02-23). 'Write Your Novel From The Middle' (p. 42). Compendium Press.
+
+. *Opening Disturbance* -- Any kind of change, challenge, trouble, or difference in the Lead's ordinary world. The first scene.
+. *Care Package* -- Someone the Lead cares about as the story begins, part of the Lead's life in the ordinary world. Show the care happening early in the story.
+. *Argument Opposed to Transformation* -- A moment where the Lead states a belief that will be overturned at the end. This is the "thematic line." For example, Dorothy in The Wizard of Oz argues (to Toto) that there must be a place with no trouble. Far, far away. At the end, she's learned, "There's no place like home."
+. *Trouble brewing* -- Things may settle for a bit after the disturbance, but then a glimpse of greater trouble coming or hovering "in the air."
+. *Doorway of No Return #1* -- Thrusts the Lead into the confrontations of Act II.
+. *Kick in the Shins* -- In trying to solve the problem, achieve the objective, get moving, the Lead suffers a significant setback.
+. *The Mirror Moment* -- The lead decides to change, or finds the strength to carry on.
+. *Pet the Dog* -- During the troubles of Act II, the Lead takes time out to help someone (or animal!) weaker than himself, even at the cost of more trouble. For example, Dr. Richard Kimble in The Fugitive saves the little boy in the emergency room, even though he gets found out by a nurse who calls security.
+. *Doorway of No Return #2* -- Major setback, crisis, clue, or discovery. Makes final battle necessary and/or possible.
+. *Mounting Forces* -- The opposition, knowing the battle is really on and that the Lead is committed, mounts larger forces.
+. *Lights Out* -- The darkest part of the plot for the Lead. It looks like all is lost.
+. *Q Factor* -- The emotional push that gives the Lead the courage to fight on or make the right choice, by recalling or seeing something of emotional impact from Act I, or hearing from a trusted character about the need to fight or choose rightly. (I call this the "Q Factor " in honor of that character from the James Bond films, who appears early in Act I to explain all the gadgets Bond gets to use. One of the gadgets usually gets Bond out of trouble near the end.)
+. *Final Battle* -- Outer (will Lead overcome the forces?) and/ or Inner (will Lead make the right choice?)
+. *Transformation* -- Usually the last chapter of your book, confirming the character's change to stronger self or new self, and carrying the emotional resonance you want to leave with the audience.
+
+]]></content>
+  <tabTrigger>murder</tabTrigger>
+  <scope>text.asciidoc</scope>
+</snippet>

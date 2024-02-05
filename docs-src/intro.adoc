@@ -1,0 +1,21 @@
+[preface]
+== Introduction
+
+This guide is presented in two parts.
+The first several chapters are detailed rundowns of the features introduced by this package -- what they are and how to invoke them.
+
+The latter chapters are workflow guides.
+They discuss comprehensive ways to make the most out of this package -- in conjunction with the built-in features of ST4 and the ST4-Asciidoctor package.
+
+
+
+[discrete]
+=== Accessing the User Guide
+
+You can quickly access this online user guide from within Sublime Text via the menu:
+
+* menu:Preferences[Package Settings > Asciidoc-Prose > User Guide]
+
+Although access to the guide requires an Internet connection, the advantage of an online guide is that you'll always have access to the latest documentation, since this guide is often updated between package releases.
+
+// EOF //

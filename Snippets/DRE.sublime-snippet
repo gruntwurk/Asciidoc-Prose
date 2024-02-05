@@ -1,0 +1,19 @@
+<snippet>
+    <description>Daily Record of Events</description>
+    <content><![CDATA[=== Brain Dump
+
+=== Notable Event
+
+=== Success and/or Fail
+
+=== Reflection/Zoom Out
+
+=== Planning
+
+=== DRE
+.
+
+$0]]></content>
+  <tabTrigger>dre</tabTrigger>
+  <scope>text.asciidoc</scope>
+</snippet>

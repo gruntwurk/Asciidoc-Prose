@@ -1,0 +1,24 @@
+<snippet>
+    <description>Location Sheet for Story Outlining</description>
+    <content><![CDATA[[[${1/( )|([A-Z])|([^-0-9a-z])/(?1-:)(?2\l$2:)(?3:)/g}]]
+=== ${1:Place}
+
+*Description:*
+
+*Season/Climate:*
+
+*Unique Features:*
+
+*Sights:*
+
+*Sounds:*
+
+*Smells:*
+
+*Notes:*
+
+
+$0]]></content>
+  <tabTrigger>place</tabTrigger>
+  <scope>text.asciidoc</scope>
+</snippet>

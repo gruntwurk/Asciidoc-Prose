@@ -1,0 +1,141 @@
+= Asciidoc Prose Package for SublimeText 4
+
+[[about]]
+== About
+
+This is a <<sublime,SublimeText 4>> plug-in (package) that enhances the experience of writing prose (fiction or non) using the <<asciidoc,AsciiDoc>> markup language (the <<asciidoctor,AsciiDoctor>> flavor in particular).
+
+NOTE: This package is *intended to supplement another general-purpose AsciiDoc package* called <<st4-asciidoctor,ST4-Asciidoctor>>, which provides syntax highlighting, dozens of snippets and commands, and other basics for working with AsciiDoc).
+
+
+
+[[features]]
+== Features
+
+Here is a summary of the main features of this package.
+See the <<user-guide,user guide>> for details on these, as well as a full list of secondary features not highlighted here.
+
+First off, we introduce a number of "`Daily Shortcuts`" for working with small amounts of selected text:
+
+- *Transpose* selected text. For example, `Janet gave the basket to George` becomes `George gave the basket to Janet`, or `half-right` becomes `right-half`.
+- *Create AsciiDoc links* around selected text. For example, `Star Wars` becomes ``<<````star-wars,Star Wars>>``.
+- *Create AsciiDoc index notation* around selected text. For example, `Star Wars` becomes ``(((````Star Wars)))``.
+- Convert the selected text from *CamelCase* to *snake_case* and vice versa.
+- Convert an inline quotation to an *AsciiDoc quote block*, e.g. `Eureka! -- Archimedes` becomes `[quote, Archimedes.]\nEureka!`.
+
+We also have a number of "`Power Tools`" for working with large amounts of selected text:
+
+- Fix up text that has been *converted to AsciiDoc* (e.g. via <<pandoc,Pandoc>>) in 20 different ways, e.g. converting dumb quotes to typographical quotes, and separating sentences each to its own line.
+- *Renumber chapters*. For example, `== Chapter One` ... `== Chapter 1.5` ... `== Chapter Two` becomes `== Chapter One` ... `== Chapter Two` ... `== Chapter Three`.
+- Update old-style AsciiDoc *to AsciiDoctor syntax*.
+- A mechanism for allowing the *drag-and-drop of images into an AsciiDoc file* where the corresponding `image::[]` links are automatically created.
+- An *anchored subsection* snippet.
+As you type in the section title, a corresponding anchor ID is generated.
+It is guaranteed to be lower-case and use hyphens instead of spaces.
+- *Align an AsciiDoc table* vertically so that it is easier to read.
+
+There are a few features specifically for *writing fiction*:
+
+- A set of snippets for developing a story: *character sheet, location sheet, scene card, story element*, etc.
+- A rudimentary *story-generator* with a customizable template to kick start a writing exercise.
+- A command that standardizes *scene breaks* into AsciiDoc horizontal rule (##'''##) syntax.
+
+And, finally there are some *Journaling* features:
+
+- A smart *journal entry* snippet that automatically timestamps the entry (e.g. `[[entry-2024-02-04-1202]]\n== 04 February 2024 Sunday:`).
+- A command that standardizes a *cooking recipe*.
+
+
+
+[[goal]]
+== Goal
+
+For *writers of nonfiction*/technical documents, these tools drastically *speed up the workflows* for cross-referencing and indexing the material, building tables, and more.
+
+For *fiction writers*, this *makes Sublime Text + Asciidoc a viable alternative to Scrivener.*
+This is aimed at any author who is already an AsciiDoc user (e.g. writes technical documents for a living), or who grasps the benefits of AsciiDoc for self-publishing.
+
+For *editors and publishers* who have standardized on using AsciiDoc, these power tools make it easy to *import manuscripts into AsciiDoc* format and whip them into shape.
+
+
+
+[[status]]
+== Status
+
+This package is functional, but enhancements are pending.
+See the https://github.com/gruntwurk/Asciidoc_Prose/issues/new/choose[issues page].
+
+
+
+[[installation]]
+== Installation
+
+This repository is not yet a full-fledged package that can be installed using SublimeText Package Control.
+Therefore, it must be manually installed, via Git:
+
+1. From your terminal, navigate to your Packages subdirectory under the ST3's data directory:
+
+* OS X: `~/Library/Application\ Support/Sublime\ Text\ 3/Packages/`
+* Linux: `~/.config/sublime-text-3/Packages/`
+* Windows: `%APPDATA%\Sublime Text 3\Packages\`
+
+2. From that directory, invoke Git to clone this repository into the `Asciidoc_Prose` subdirectory:
+
+    git clone https://github.com/gruntwurk/Asciidoc_Prose.git Asciidoc_Prose
+
+3. Restart SublimeText.
+
+
+
+[[contributing]]
+== Contributing
+
+Any contribution to this project is most welcome, whether it's a suggestion submitted by https://github.com/gruntwurk/Ascii_Prose/issues/new/choose[opening a new issue], or contributions to the code via pull requests using Git.
+
+
+
+[[credits]]
+== Credits
+
+This is an original package developed by Craig Jones (https://github.com/polyglot-jones[]).
+
+
+
+[[license]]
+== License
+
+This project is licensed under MIT License.
+For the full text of the license, see the link:LICENSE[LICENSE file]
+
+
+
+== Further Info
+
+[[st4-asciidoctor]]
+=== The ST4-Asciidoctor Package
+
+Adds <<asciidoc,AsciiDoc>> support to <<sublime,SublimeText 4>> -- specifically, <<asciidoctor,Asciidoctor>>-flavored support.
+It provides syntax highlighting, dozens of snippets and commands, and other basics for working with AsciiDoc).
+
+* https://github.com/tajmone/ST4-Asciidoctor[]
+
+
+[[asciidoc]]
+=== AsciiDoc Markup Language
+
+* https://asciidoc.org[]
+* https://asciidoctor.org[]
+
+
+[[sublime]]
+=== SublimeText 4 Editor
+
+* https://forum.sublimetext.com[SublimeText Forum]
+* https://www.sublimetext.com[SublimeText 4 Main Site]
+
+
+[[pandoc]]
+=== Pandoc Document Conversion Tool
+
+* https://pandoc.org[Pandoc Main Site]
+

@@ -1,0 +1,45 @@
+[
+  { "keys": ["ctrl+u", "ctrl+h"],             "command": "asciidoc_select_section" },
+  { "keys": ["ctrl+u", "ctrl+a"],             "command": "asciidoc_update_syntax" },
+  { "keys": ["ctrl+u", "ctrl+f"],             "command": "asciidoc_prose_fixup" },
+  { "keys": ["ctrl+u", "ctrl+t"],             "command": "asciidoc_align_table" },
+  { "keys": ["ctrl+u", "ctrl+g"],             "command": "story_generator" },
+  { "keys": ["ctrl+u", "ctrl+q"],             "command": "asciidoc_quote_notation" },
+  { "keys": ["ctrl+u", "ctrl+'"],             "command": "asciidoc_scene_break_fixup" },
+  { "keys": ["ctrl+shift+u", "ctrl+shift+'"], "command": "asciidoc_quote_notation" },
+  { "keys": ["ctrl+k", "ctrl+t"],             "command": "title_case" },
+  { "keys": ["ctrl+k", "ctrl+s"],             "command": "snake_case" },
+  { "keys": ["ctrl+k", "ctrl+c"],             "command": "camel_case" },
+  { "keys": ["ctrl+k", "ctrl+w"],             "command": "unwrap_paragraphs" },
+  { "keys": ["ctrl+j", "ctrl+j"],             "command": "journal_entry" },
+  { "keys": ["ctrl+alt+l"],                   "command": "remove_links" },
+  { "keys": ["shift+f6"],                     "command": "select_all_spelling_errors" },
+  { "keys": ["alt+w"],                        "command": "toggle_setting", "args": {"setting": "word_wrap"} },
+  { "keys": ["ctrl+f12"],                     "command": "prompt_save_as" },
+  { "keys": ["alt+l"],                        "command": "asciidoc_linkify" },
+  { "keys": ["alt+t"],                        "command": "transpose" },
+  { "keys": ["ctrl+9"],                       "command": "index_tag" },
+  { "keys": ["ctrl+shift+9"],                 "command": "index_tag" },
+  { "keys": ["ctrl+b"],                       "command": "insert_snippet", "args": {"contents": "*${0:$SELECTION}*"},
+                                              "context": [
+                                                {"key": "selection_empty","operator": "equal","operand": false,"match_all": true},
+                                                {"key": "selector","operator": "equal","operand": "text.asciidoc","match_all": true},
+                                                {"key": "selector","operator": "not_equal","operand": "markup.raw","match_all": true}
+                                              ]},
+  { "keys": ["ctrl+i"],                       "command": "insert_snippet", "args": {"contents": "_${0:$SELECTION}_"},
+                                              "context": [
+                                                {"key": "selection_empty","operator": "equal","operand": false,"match_all": true},
+                                                {"key": "selector","operator": "equal","operand": "text.asciidoc","match_all": true},
+                                                {"key": "selector","operator": "not_equal","operand": "markup.raw","match_all": true}
+                                              ]},
+  { "keys": ["ctrl+shift+'"],                 "command": "insert_snippet","args": {"contents": "\"`${0:$SELECTION}`\""},
+                                              "context": [
+                                                {"key": "selector","operator": "equal","operand": "text.asciidoc","match_all": true},
+                                                {"key": "selector","operator": "not_equal","operand": "markup.raw","match_all": true}
+                                              ]},
+  { "keys": ["ctrl+'"],                       "command": "insert_snippet","args": {"contents": "'`${0:$SELECTION}`'"},
+                                              "context": [
+                                                {"key": "selector","operator": "equal","operand": "text.asciidoc","match_all": true},
+                                                {"key": "selector","operator": "not_equal","operand": "markup.raw","match_all": true}
+                                              ]}
+]

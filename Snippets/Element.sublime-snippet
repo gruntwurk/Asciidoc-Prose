@@ -1,0 +1,14 @@
+<snippet>
+    <description>Initial Conceptualization of a Story Element (Character, Setting, Object, or Event)</description>
+    <content><![CDATA[
+$0`CHARACTER` `SETTING` `OBJECT` `EVENT` *${1:<name>}*
+Intent:: ${2:<What this element accomplishes for the story>}
+Premise:: ${3:<Assumptions/required setup>}
+Theme:: ${4:<A moral/truism particular to this element, if any>}
+Function:: ${5:<Story-telling function>}
+Execution:: ${6:<Writing prompt/summary/emphasis>}
+
+]]></content>
+  <tabTrigger>elem</tabTrigger>
+  <scope>text.asciidoc</scope>
+</snippet>

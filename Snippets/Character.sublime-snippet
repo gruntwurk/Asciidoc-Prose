@@ -1,0 +1,46 @@
+<snippet>
+    <description>Character Sheet for Story Outlining</description>
+    <content><![CDATA[[[char-${1/( )|([A-Z])|([^-0-9a-z])/(?1-:)(?2\l$2:)(?3:)/g}]]
+== ${1:character name} (${2:sex}) ${3:profession or role}
+
+=== In Short
+
+=== Appearance
+
+* ${4:age} years old
+* ${5:height/stature} // tall, short, slender, athletic, stout, paunchy
+* ${6:complexion} // tan, dark skin, pale, freckled, albino, acned, sunburned
+* ${7:hair} //(m): buzz, crew, Ivy League; (f) asymmetric, bangs, bob cut, (French) braided, bun, curtained, feather, highlights, pixie
+
+=== Personality
+
+* ${8:alignments} // lawful vs. chaotic, good vs. evil
+* ${9:meyers-brigg} // Introvert/Extrovert, Sensing/iNtuiting, Thinking/Feeling, Perceiving/Judging
+
+=== Motivations/Ambitions
+
+=== Back Story (highlights)
+(Write backstory scenes elsewhere, and/or "interview" the character.)
+
+=== Relationships
+
+=== Communication Style
+
+=== Limitations
+(Physical or mental weakness -- their Kryptonite)
+
+=== Character Defect/Personality Flaw
+(e.g. self-centered? competitive? lazy? compliant? demanding?)
+
+=== Thought Processs
+(Deliberate vs. seat-of-the-pants? Does internal dialog differ from external?)
+
+=== Relatablity
+
+=== Notes
+
+
+$0]]></content>
+  <tabTrigger>char</tabTrigger>
+  <scope>text.asciidoc</scope>
+</snippet>

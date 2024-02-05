@@ -1,0 +1,88 @@
+
+[[features]]
+== Features
+
+This chapter is a detailed rundown of the features introduced by this package -- what they are and how to invoke them.
+For a few of the features, the details are extensive, so they have chapters of their own.
+
+=== General Features -- Daily Shortcuts
+
+These are the most heavily used commands:
+
+- *Transpose* the selected text (kbd:[alt]+kbd:[T]). If the text contains space(s), then the first and last word of the selected text are transposed. For example, `Janet gave the basket to George` becomes `George gave the basket to Janet`. Otherwise, the text is transposed around the first non-alphanumeric character found within the text. For example, `half-right` becomes `right-half`. Multi-select capable. (Not to be confused with Sublime's original transpose command that merely transposes the two characters on either side of the cursor.)
+- *Create AsciiDoc links* around selected text (kbd:[alt]+kbd:[L]). For example: `Star Wars` becomes ``<<````star-wars,Star Wars>>``. The generated anchor is guaranteed to be lower-case and use hyphens instead of spaces. Multi-select capable. TIP: Combine this with the transpose command, above, when turning a proper name into a link. (`Luke Skywalker` first becomes ``<<````luke-skywalker,Luke Skywalker>>``), then double click on the `luke-skywalker` and transpose it to move the last name first, thus: ``<<````skywalker-luke,Luke Skywalker>>``.)
+- *Create AsciiDoc index notation* around selected text (kbd:[ctrl]+kbd:[9], 9 being the same key as the left parenthesis). For example, `Star Wars` becomes ``(((````Star Wars)))``. Multi-select capable. Press the hotkey repeatedly to cycle through from no parenthesis to 3 parenthesis (concealed index), to 2 (visible "`flow`" index), to 1 (ordinary text), to none again.
+- Convert the selected text from CamelCase to *snake_case* (kbd:[ctrl]+kbd:[K], kbd:[ctrl]+kbd:[S]). Multi-select capable.
+- Convert the selected text from snake_case to *CamelCase* (kbd:[ctrl]+kbd:[K], kbd:[ctrl]+kbd:[C]). Multi-select capable.
+- Convert an inline quotation to an *AsciiDoc quote block* (kbd:[ctrl]+kbd:[U], kbd:[ctrl]+kbd:[Q]). E.g. `Eureka! -- Archimedes` becomes `[quote, Archimedes.]\nEureka!`.
+- *Unwrap paragraphs* (kbd:[ctrl]+kbd:[K], kbd:[ctrl]+kbd:[W]). In AsciiDoc, paragraphs are separated by one or more blank lines. It's also common practice to insert a newline between each sentence within a paragraph. This command undoes that. (Useful, for example, before copying and pasting into a non-AsciiDoc aware tool such as when composing an email. Multi-select capable.)
+- Also: assigned a shortcut of kbd:[alt]+kbd:[W] to the Sublime command that *toggles word-wrap* on/off.
+- Also: Assigned a shortcut of kbd:[ctrl]+kbd:[F12] to the Sublime command that opens the *Save-As dialog*.
+
+
+=== General Features -- Power Tools
+
+- A command to <<fixup_converted,fix up text that has been converted>> to AsciiDoc (e.g. via <<pandoc,Pandoc>>) in 20 different ways (kbd:[ctrl]+kbd:[U], kbd:[ctrl]+kbd:[F]).
+
+- A command that updates old-style AsciiDoc *to AsciiDoctor syntax* (kbd:[ctrl]+kbd:[U], kbd:[ctrl]+kbd:[A]).
+
+- A command that automatically <<renumber-chapters,renumbers chapters>>.
+Invoke via Menu | AsciiDoc Tools.
+
+- A command that *removes any/all AsciiDoc links* from within the selected text (kbd:[ctrl]+kbd:[alt]+kbd:[L]).
+That is, ``<<````anchor,label>>`` becomes just "label").
+For example, to remove all links from within an entire asciidoc file, use kbd:[ctrl]+kbd:[A] then kbd:[ctrl]+kbd:[alt]+kbd:[L].
+Multi-select capable.
+
+- A command that creates a <<static-toc,*static table of contents*>> in the form of an unordered list corresponding to every heading in the current document.
+If a heading is preceded by an anchor, then the bullet item will be a link; otherwise, plain text.
+The ToC is inserted at the top of the document.
+Invoke via Menu | AsciiDoc Tools.
+
+- A command that *selects every spelling error* in the current document (kbd:[shift]+kbd:[F6]).
+Useful for analyzing commonly misspelled words, made-up character names, etc.
+TIP: After executing this command, copy all of the selections to a new file, sort them, and then drop duplicates (kbd:[shift]+kbd:[F6], kbd:[ctrl]+kbd:[C], kbd:[ctrl]+kbd:[N], kbd:[ctrl]+kbd:[V], Edit > Sort Lines, Edit > Permute Lines > Unique).
+Then, look for (unwanted) variations.
+
+- A command that *selects the entire current "section"*, from one header to the next (kbd:[ctrl]+kbd:[U], kbd:[ctrl]+kbd:[H]).
+The section could be a whole chapter, a section of a chapter, or subsection of a section.
+In other words, the current cursor position/selection is first expanded upwards until it hits a heading line (= Title, == Chapter, === Section, ==== Subsection, etc.).
+Any preamble to the heading line, such as anchors and comments, are also included.
+The selection is then expanded downwards until it hits a corresponding heading at the same level, or one at a more significant level, or the end of the file.
+Multi-select capable (e.g. after a find-all operation).
+
+- A mechanism for allowing the <<drop-images,drag-and-drop of images into an AsciiDoc file>> where the corresponding `image::[]` links are automatically created.
+
+- An *anchored subsection* snippet.
+Trigger is `[[` kbd:[tab].
+As you type in the section title, a corresponding anchor ID is generated.
+It is guaranteed to be lower-case and use hyphens instead of spaces.
+The snippet is hard-coded to use a sub-heading (i.e. three equal signs).
+
+- A command that will *align an AsciiDoc table* vertically so that it is easier to read (kbd:[ctrl]+kbd:[U], kbd:[ctrl]+kbd:[T]).
+
+- A tool to convert from RST to AsciiDoc (only does a rudimentary conversion, currently).
+Invoke via Menu | AsciiDoc Tools.
+
+
+=== Fiction-Writing Features
+
+- A set of <<snippet-details,snippets>> (templates) for developing a story: character sheet, location sheet, scene card, story element, etc.
+
+- A rudimentary <<story-generator,story generator>> with a customizable template (to kick start a writing exercise) (kbd:[ctrl]+kbd:[U], kbd:[ctrl]+kbd:[G]).
+
+- A command that standardizes *scene breaks* into AsciiDoc horizontal rule (##'''##) syntax (kbd:[ctrl]+kbd:[U], kbd:[ctrl]+kbd:[']).
+For scene breaks, authors will use a short line with whatever random punctuation symbol(s) tickle their fancy.
+This command captures the most obvious ones.
+
+
+=== Journaling Features
+
+- A smart *journal entry* snippet (kbd:[ctrl]+kbd:[J], kbd:[ctrl]+kbd:[J]).
+It's smart in that it automatically timestamps the entry in two ways.
+It generates a heading that begins with the date (e.g. `== 04 February 2024 Sunday:`).
+It also generates an anchor ID based on the date and time.
+
+- A command that will standardize a *cooking recipe*.
+Invoke via Menu | AsciiDoc Tools.
+

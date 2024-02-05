@@ -1,0 +1,29 @@
+[[drop-images]]
+== Command: Drag and Drop Images
+
+This one is slightly convoluted.
+You can drag an image file into ST4, but it only results in opening a new tab to view the image.
+You cannot target an already open tab.
+It would be nice if you could drag it to a particular cursor position within an AsciiDoc file and have it directly result in an `image:[]` macro call, but you can't.
+So the compromise is this:
+
+. Drag one or more images to ST4. ST4 will open them each in their own tab.
+
+. Navigate back to the tab with your AsciiDoc file and place your cursor where you would like the (first) `image:[]` macro call to appear.
+
+. Invoke the "`Links: Gather Dropped Images`" command via "`Tools > AsciiDoc`" menu.
+This will create one `image:[]` macro call for each of the image tabs.
+It will also close the image tabs as it does.
+
+[source,AsciiDoc]
+----
+image::C:\journal_images\tools\Draw_Knife.png[]
+image::C:\journal_images\tools\0342_measuring_instruments.JPG[]
+image::C:\journal_images\tools\0361_tools.JPG[]
+----
+
+[start=4]
+. Edit the file paths as desired.
+
+. Move the secondary calls to where they belong.
+

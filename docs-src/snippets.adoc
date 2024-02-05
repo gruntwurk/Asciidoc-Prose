@@ -1,0 +1,38 @@
+== Snippet Details
+
+"`Snippets`" in Sublime Text are also known as "`live templates.`"
+A snippet is inserted by typing the trigger word followed by the `tab` key.
+For example, type ##char## `tab` to start a new character sheet.
+Sublime will then guide you through the template, filling in the blanks.
+In some cases, blanks are automatically computed based on the entries of corresponding blanks.
+Hit `tab` to navigate from one blank to the next.
+
+
+=== Story-Writing "Murder Board" Template
+
+##murder## `tab`-- A 140-line template for describing the story overall.
+
+=== Character Sheet
+
+##char## `tab`-- A 40-line template for describing a (main) character -- either added to the murder board, or kept in a separate file.
+
+=== Location Sheet
+
+##place## `tab`-- A 20-line template for describing a key location -- either added to the murder board, or kept in a separate file.
+
+=== Scene Card
+
+##scene## `tab`-- A 15-line template for outlining the arc of a single scene (sequence).
+
+=== Story Element
+
+##elem## `tab`-- A 5-part template for specifying the placeholder for a particular story element that will be fleshed out later.
+This is based on the concept of "`outlining via Matryoshka`" as described in https://www.youtube.com/watch?v=EWufOLC34jg[].
+The analogy here is that the elements (3x5 _cards_) of an outline are like Russian Matryoshka (nesting dolls).
+A card/doll can represent a _character_, a _setting_, an _object_, or an _event_.
+
+
+=== Anchored Subsection
+
+##[[## `tab`-- Sets up the entry of a subsection header that is preceeded by an anchor where the anchor's ID is automatically generated based on the text of the title.
+The anchor ID is guaranteed to be lower case without spaces.

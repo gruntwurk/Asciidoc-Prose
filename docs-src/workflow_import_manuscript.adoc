@@ -1,0 +1,41 @@
+
+[[workflow-import]]
+== Workflow: Importing a Manuscript to AsciiDoc and Making It Shipshape
+
+Situation: You have a writer friend who needs help (self-)publishing a book.
+You prefer working in AsciiDoc, but the manuscript is in a Word document.
+Perhaps, it's not even a very well-formed Word document (no usage of paragraph styles, etc.)
+What is the easiest way to convert it to AsciiDoc and then get it up to snuff?
+
+=== Install and Run Pandoc
+
+Step one is to install `pandoc` and run it to convert the DOCX file into a rudimentary AsciiDoc file:
+
+`pandoc --from=docx --to=asciidoc --wrap=none --atx-headers The_Manuscript.docx > The_Manuscript.adoc`
+
+or, if the manuscript includes embedded images, then:
+
+`pandoc --from=docx --to=asciidoc --wrap=none --atx-headers --extract-media=extracted-media The_Manuscript.docx > The_Manuscript.adoc`
+
+
+=== Add the Manuscript to Version Control
+
+Using your favorite version control tool, add `The_Manuscript.adoc` (or whatever you called it) along with any embedded images to an appropriate repository.
+(If not using any version control tool, then at least save off a copy of `The_Manuscript.adoc` somewhere.)
+
+
+=== Fix Up the Converted Prose
+
+Open `The_Manuscript.adoc` in ST4 and run the <<fixup-converted,Fix Up Converted Prose>> command.
+Compare this new version of the manuscript to the raw version and revert any changes that you don't like.
+Commit the remaining changes to version control.
+
+=== Renumber the Chapters
+
+Many authors manually number their chapters but then run into trouble when they decide later to insert a new chapter or delete/reorder an old one.
+You can take advantage of the <<renumber-chapters,Renumber Chapters>> command if that is the case.
+
+=== More TBD
+
+TBD
+

@@ -1,0 +1,80 @@
+[[static-toc]]
+== Static Table of Contents
+
+The "`AsciiDoc: Static Table of Contents`" command is used to create a static (i.e. a current snapshot) ToC in the form of an unordered list corresponding to every heading in the current document.
+If a heading is preceded by an anchor, then the bullet item will be a link; otherwise, plain text.
+Also, if the first line of text that follows a heading is a byline (i.e. starts with "by ") then that line will be added to the end of the heading text.
+The ToC is inserted at the top of the edit buffer.
+
+Here is an example without anchors:
+
+----
+= The Title of This Book
+
+by Someone U. Know
+
+== Introduction
+
+Lorim Ipsum
+
+== Getting Started
+
+Lorim Ipsum
+
+=== First Steps
+
+Lorim Ipsum
+
+=== Next Steps
+
+Lorim Ipsum
+----
+
+Becomes:
+
+----
+* The Title of This Book by Someone U. Know
+** Introduction
+** Getting Started
+*** First Steps
+*** Next Steps
+----
+
+And here is an example with anchors:
+
+----
+[[title]]
+= The Title of This Book
+
+by Someone U. Know
+
+[[intro]]
+== Introduction
+
+Lorim Ipsum
+
+[[getting-started]]
+== Getting Started
+
+Lorim Ipsum
+
+=== First Steps
+
+Lorim Ipsum
+
+=== Next Steps
+
+Lorim Ipsum
+----
+
+Becomes:
+
+----
+* <title,The Title of This Book> by Someone U. Know
+** <intro,Introduction>
+** <getting-started,Getting Started>
+*** First Steps
+*** Next Steps
+----
+
+

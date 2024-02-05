@@ -1,0 +1,57 @@
+[
+  {
+    "id": "tools",
+    "children": [
+      {
+        "caption": "AsciiDoc",
+        "id": "asciidoc-tools",
+        "mnemonic": "A",
+        "children": [
+          { "caption": "Syntax: Update to AsciiDoctor Syntax", "command": "asciidoc_update_syntax" },
+          { "caption": "Syntax: Fix Up Converted Prose", "command": "asciidoc_prose_fixup" },
+          { "caption": "Syntax: Convert Scene Breaks to HRs", "command": "asciidoc_scene_break_fixup" },
+          { "caption": "Syntax: Convert from RST", "command": "asciidoc_from_rst" },
+          { "caption": "Blocks: Quote Notation","command": "asciidoc_quote_notation" },
+          { "caption": "Blocks: Align Table","command": "asciidoc_align_table" },
+          { "caption": "Links: Convert Selection(s) to Link(s)", "command": "asciidoc_linkify" },
+          { "caption": "Links: Remove Links", "command": "remove_links" },
+          { "caption": "Links: Gather Dropped Images", "command": "asciidoc_gather_dropped_images" },
+          { "caption": "Text: Snake Case", "command": "snake_case" },
+          { "caption": "Text: Camel Case", "command": "camel_case" },
+          { "caption": "Writing: Renumber Chapters", "command": "asciidoc_renumber_chapters" },
+          { "caption": "Writing: Static Table of Contents", "command": "static_table_of_contents" },
+          { "caption": "Writing: Standardize a Recipe", "command": "recipe_standardizer" },
+          { "caption": "Writing: Generate Story", "command": "story_generator" },
+          { "caption": "Writing: Select All Spelling Errors", "command": "select_all_spelling_errors" },
+        ]
+      }
+    ]
+  },
+  {
+    "id": "preferences",
+    "children": [
+      {
+        "caption": "Package Settings",
+        "children": [
+          {
+            "caption": "Asciidoc Prose",
+            "children": [
+              {
+                "args": { "file": "${packages}/Asciidoc-Prose/Asciidoc-Prose.sublime-settings" },
+                "caption": "Settings \u2013 Default",
+                "command": "open_file"
+              },
+              {
+                "args": { "file": "${packages}/User/Asciidoc-Prose.sublime-settings" },
+                "caption": "Settings \u2013 User",
+                "command": "open_file"
+              }
+            ]
+          }
+        ],
+        "id": "package-settings",
+        "mnemonic": "P"
+      }
+    ]
+  }
+]

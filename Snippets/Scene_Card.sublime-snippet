@@ -1,0 +1,19 @@
+<snippet>
+    <description>Scene Card for Story Outlining</description>
+    <content><![CDATA[[[${1/( )|([A-Z])|([^-0-9a-z])/(?1-:)(?2\l$2:)(?3:)/g}]]
+=== ${1:Scene Name}
+
+// POV Character: <<${2/( )|([A-Z])|([^-0-9a-z])/(?1-:)(?2\l$2:)(?3:)/g},${2:Characters Name}>>
+// Scene Goal: ${3:What's at stake? What do the characters want to achieve?}
+
+// SETUP -- ${4:What are the characters dealing with, both internally and externally, when the scene begins? How are they feeling?}
+
+// CROSSROADS -- ${5:What decisions must the characters make (based on their internal conflicts)?}
+
+// OUTCOME -- ${6:Where does this leave the characters? What has changed?}
+
+// THE NEW QUESTION -- ${7:What new loose thread is created for the reader?}
+]]></content>
+  <tabTrigger>scene</tabTrigger>
+  <scope>text.asciidoc</scope>
+</snippet>

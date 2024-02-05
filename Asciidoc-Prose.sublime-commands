@@ -1,0 +1,22 @@
+[
+  { "caption": "AsciiDoc: Update to AsciiDoctor Syntax","command": "asciidoc_update_syntax" },
+  { "caption": "AsciiDoc: Fix Up Converted Prose","command": "asciidoc_prose_fixup" },
+  { "caption": "AsciiDoc: Unwrap Paragraphs", "command": "unwrap_paragraphs" },
+  { "caption": "AsciiDoc: Scene Breaks to HRs","command": "asciidoc_scene_break_fixup" },
+  { "caption": "Asciidoc: Renumber Chapters","command": "asciidoc_renumber_chapters" },
+  { "caption": "Asciidoc: Story Generator", "command": "story_generator" },
+  { "caption": "Asciidoc: Build a Static Table of Contents","command": "static_table_of_contents" },
+  { "caption": "Asciidoc: Select All Spelling Errors","command": "select_all_spelling_errors" },
+  { "caption": "Asciidoc: Remove Links","command": "remove_links" },
+  { "caption": "Asciidoc: Snake Case","command": "snake_case" },
+  { "caption": "Asciidoc: Camel Case","command": "camel_case" },
+  { "caption": "Asciidoc: Standardize a Recipe", "command": "recipe_standardizer" },
+  { "caption": "Asciidoc: Convert from RST","command": "asciidoc_from_rst" },
+  { "caption": "Asciidoc: Quote Notation","command": "asciidoc_quote_notation" },
+  { "caption": "Asciidoc: Align Table","command": "asciidoc_align_table" },
+  { "caption": "Asciidoc: Journal Entry", "command": "journal_entry" },
+  { "caption": "AsciiDoc: Gather Dropped Images","command": "asciidoc_gather_dropped_images" },
+  { "caption": "AsciiDoc: Convert Selection(s) to Link(s)","command": "asciidoc_linkify" },
+  { "caption": "AsciiDoc: Select Whole Section (chapter, section, subsection)","command": "asciidoc_select_section" },
+]
+

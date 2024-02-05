@@ -1,0 +1,66 @@
+= Asciidoc-Prose User Guide
+:author: Craig Jones
+:email: <craig@k6nnl.com>
+:revdate: 2024-02-04
+:revnumber: 0.0.1
+:revremark: Alpha
+:version-label: v
+:lang: en
+:doctype: book
+// TOC Settings:
+:toclevels: 5
+:toc: left
+// Sections Numbering:
+:sectnums!:
+:sectnumlevels: 2
+// Cross References:
+:idprefix:
+:xrefstyle: full
+:chapter-refsig: Ch.
+:section-refsig: Sec.
+:appendix-refsig: App.
+// Misc Settings:
+:experimental: true
+:icons: font
+:linkattrs: true
+:reproducible: true
+:sectanchors:
+// Paths:
+:imagesdir: images
+
+// Custom attributes for substitutions:
+include::_inc-attributes-custom.adoc[]
+
+// Preamble
+// ========
+
+User guide for the
+https://github.com/gruntwurk/Asciidoc-Prose[Asciidoc-Prose^, title="Visit the package repository at GitHub"]
+package.
+
+
+include::intro.adoc[]
+
+include::features.adoc[]
+
+include::snippets.adoc[]
+
+include::command_fixup_converted.adoc[]
+
+include::command_renumber_chapters.adoc[]
+
+include::command_static_toc.adoc[]
+
+include::command_drop_images.adoc[]
+
+include::command_story_generator.adoc[]
+
+include::workflow_import_manuscript.adoc[]
+
+include::workflow_indexing.adoc[]
+
+include::workflow_xref.adoc[]
+
+include::workflow_multiselect.adoc[]
+
+// EOF //

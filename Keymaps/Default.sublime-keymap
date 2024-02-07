@@ -17,6 +17,7 @@
   { "keys": ["alt+w"],                        "command": "toggle_setting", "args": {"setting": "word_wrap"} },
   { "keys": ["ctrl+f12"],                     "command": "prompt_save_as" },
   { "keys": ["alt+l"],                        "command": "asciidoc_linkify" },
+  { "keys": ["alt+a"],                        "command": "asciidoc_anchorify" },
   { "keys": ["alt+t"],                        "command": "transpose" },
   { "keys": ["ctrl+9"],                       "command": "index_tag" },
   { "keys": ["ctrl+shift+9"],                 "command": "index_tag" },

@@ -1,10 +1,17 @@
 import sublime, sublime_plugin  # noqa
 import re
-from .source.prose_utils import (camel_case, collapse_whitespace, pluck_out_match, snake_case, transpose)
-from .source.asciidoc_utils import (classify_adoc_syntax, remove_links, auto_align_table_columns, extract_headings, opinionated_adoc_fixup, unwrap_paragraphs, asciidoctor_syntax_fixup, index_tag)
+from .source.prose_utils import (camel_case, collapse_whitespace,
+                                 pluck_out_match, snake_case, transpose,
+                                 generate_valid_anchor_token)
+from .source.asciidoc_utils import (classify_adoc_syntax, remove_links,
+                                    auto_align_table_columns, extract_headings,
+                                    opinionated_adoc_fixup, unwrap_paragraphs,
+                                    asciidoctor_syntax_fixup, index_tag)
 from .source.cookbook_utils import (recipe_fixup)
-from .source.journal_utils import (format_long, format_slug_with_time, standardize_keywords, journal_entry)
-from .source.manuscript_utils import (adoc_renumber_chapters, fix_scene_breaks, quote_notate)
+from .source.journal_utils import (format_long, format_slug_with_time,
+                                   standardize_keywords, journal_entry)
+from .source.manuscript_utils import (adoc_renumber_chapters, fix_scene_breaks,
+                                      quote_notate)
 from .source.abstract_command import AbstractUtilTextCommand
 
 
@@ -136,7 +143,6 @@ class AsciidocUpdateSyntaxCommand(AbstractUtilTextCommand):
         self.process_all_regions(asciidoctor_syntax_fixup)
 
 
-
 # ###########################################################################
 #                                                         Recipe Standardizer
 # ###########################################################################
@@ -223,7 +229,6 @@ class IndexTagCommand(AbstractUtilTextCommand):
         self.process_all_regions(index_tag)
 
 
-
 # ###########################################################################
 #                                                                 Link/Unlink
 # ###########################################################################
@@ -236,14 +241,32 @@ class AsciidocLinkify(sublime_plugin.TextCommand):
     """
     def run(self, edit):
         self._edit = edit
-        for i,region in enumerate(self.view.sel()):
+        for i, region in enumerate(self.view.sel()):
             link_text = self.view.substr(region).strip()
             if len(link_text) == 0:
                 continue
                 # TODO expand selection to word
-            block_id = re.sub(r' ', r'-', link_text.lower().strip())
-            block_id = re.sub(r'[^-0-9a-z]', r'', block_id)
+            block_id = generate_valid_anchor_token(link_text)
             self.view.replace(self._edit, region, f"<<{block_id},{link_text}>>")
+
+
+class AsciidocAnchorify(sublime_plugin.TextCommand):
+    """
+    Generates an AsciiDoc anchor according to the selected text.
+    "Apple Pie" -> [[apple-pie]] (on the line above).
+    Works with multiple selections.
+    """
+    def run(self, edit):
+        self._edit = edit
+        for i, region in enumerate(self.view.sel()):
+            link_text = self.view.substr(region).strip()
+            if len(link_text) == 0:
+                continue
+                # TODO expand selection to word
+            whole_line_region = self.view.line(region)
+            whole_line_text = self.view.substr(whole_line_region)
+            block_id = generate_valid_anchor_token(link_text)
+            self.view.replace(self._edit, whole_line_region, f'[[{block_id}]]\n{whole_line_text}')
 
 
 class RemoveLinksCommand(AbstractUtilTextCommand):

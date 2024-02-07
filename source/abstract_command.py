@@ -134,15 +134,13 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
 
         # Build a master ToC of sorts
         headings = self.view.find_all('^=+')
-        print (headings)
 
         sections = []
         for heading in headings:
             p = self.start_of_preamble(heading.begin(), classifier)
-            sections.append( (p, len(heading)) )
-            print ("section start {} -> {} len = {}".format(heading.begin(), p, len(heading)))
+            sections.append((p, len(heading)))
         # Add a phantom extra heading at the end to denote the EOF
-        sections.append( (self.view.size() + 1, 0) )
+        sections.append((self.view.size() + 1, 0))
 
         # Expand each current selection according to the ToC
         for s in self.view.sel():

@@ -1,7 +1,77 @@
 [[workflow-xref]]
 == Workflow: Cross Referencing Within a Document
 
+AsciiDoc allows you to drop an "`anchor`" (aka. a block ID) anywhere in a document (e.g. +++[[star-wars-movie]]+++) and then cross-reference that anchor point from elsewhere in the document via a "`link`" (e.g. +++<<star-wars-movie,Star Wars>>+++).
+This is quite similar to how a computer program will define a variable or a function in one part of the program and then reference that variable or call that function elsewhere.
+Generally speaking, the names that are given to these various objects (anchor points, variables, functions) are called "`symbols,`" and ST4 has features that understand such symbols.
+It understands when symbols are defined/declared, and it understands when they are referenced/called/used.
+
+Auto-completions::
+ST4 can do the bulk of the typing for you when you want to reference a symbol that has been previously declared.
+For example, if ST4 sees that you have a +++[[star-wars-movie]]+++ anchor point defined, then you can use the auto-completion feature to have it type `star-wars-movie` into a link for you.
+Just type the first couple of letters (`<<sta`) and the press kbd:[ctrl]+kbd:[space].
+ST4 will then pop up a list of all of the known symbols that begin with `sta` for you to choose from, resulting in: `<<star-wars-movie`.
+
+GoTo-Definition (kbd:[F12])::
+You can quickly navigate from a link to the anchor point that it references.
+Just place the cursor within the block ID (symbol) within the link and press kbd:[F12].
+
+GoTo-Reference (kbd:[shift]+kbd:[F12])::
+To go the other way, from an anchor point to a place that links to it, press kbd:[shift]+kbd:[F12].
+If there is only on link that ST4 knows about, it will take you there directly.
+If there are multiple links, then it will show you a list of them from which you can select the one you want.
+
+
+=== How ST4 Knows to Recognize Anchors and Links
+
+The ST4-Asciidoctor package is what gives ST4 an understanding of the AsciiDoc markup language.
+A major part of this is the syntax definition file (`Asciidoctor.sublime-syntax`).
+Among many other things, it tells ST4 how to recognize an anchor point (a block ID), and how to recognize a cross-reference link.
+(Internally, it gives them scope labels of `markup.underline.blockid.id.asciidoc` and `variable.parameter.xref.link.asciidoc`, respectively.)
+
+
+=== How ST4 Knows to Consider Anchors as Completion Targets
+
+The ST4-Asciidoctor package also contains Python code that gives it the smarts to offer up the block IDs as completion targets.
+(That code is contained in a file called `completions.py`.
+That code simply provides the glue between ST4's syntax parser, which can now determine that a block ID has a scope label of `markup.underline.blockid.id.asciidoc`, and ST4's completions engine, telling it to include anything with such as scope label in the list of possible completions.)
+
+
+=== How ST4 Knows to Consider Anchors as Jump Targets
+
 TBD
 
+
+
+=== Enabling ID Names to Contain Hyphens
+
+In AsciiDoc, anchor names must be valid XML names.
+Basically, letters, digits, underscore (\_), colon (:), hyphen (-), or period (.), except that it cannot start with a digit, hyphen, or period.
+(There are some unicode characters allowed as well. See https://www.w3.org/TR/REC-xml/#NT-Name[] for the minor details.)
+
+However, to take advantage of ST4 being able to jump between links and anchors, we also have to be mindful of how ST4 parses names.
+Specifically, there is a setting called `word_separators`.
+The ST4-Asciidoctor package sets `word_separators` as follows:
+
+----
+  // Characters that are considered to separate words
+  "word_separators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`?…\u00A0„“”"
+----
+
+This setting affects how double-click works (select whole word), and how kbd:[ctrl] + kbd:[right-arrow]/kbd:[left-arrow] works (move to beginning or ending of a word).
+Indirectly, it also affects how kbd:[F12] works (goto definition), how kbd:[shift]+kbd:[F12] works (goto reference), because if you place the cursor somewhere on a symbol and press kbd:[F12], the select-whole-word action is implied in order for it to determine the full symbol to find.
+
+Since colon (:), hyphen (-), and period (.) are all considered word-separators, ST4 won't be able to recognize any IDs that contain them as being jump targets (unless you manually click and drag to select the whole symbol first).
+
+In the case of colon and period, that's easy to avoid, but it's extremely common for hyphens to be used in AsciiDoc block IDs.
+
+It's reasonable to remove hyphen from the `word_separators` list as a user override (`Preferences` -> `Package Settings` -> `Asciidoctor` -> `Settings - User`)
+----
+{
+  "word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`?…\u00A0„“”"
+}
+----
+This will allow kbd:[F12] jumps to work, but you'll have to live with double-click and
+kbd:[ctrl] + kbd:[arrow] skipping over hyphens.
 
 

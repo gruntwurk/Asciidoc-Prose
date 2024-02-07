@@ -10,8 +10,8 @@ For a few of the features, the details are extensive, so they have chapters of t
 These are the most heavily used commands:
 
 - *Transpose* the selected text (kbd:[alt]+kbd:[T]). If the text contains space(s), then the first and last word of the selected text are transposed. For example, `Janet gave the basket to George` becomes `George gave the basket to Janet`. Otherwise, the text is transposed around the first non-alphanumeric character found within the text. For example, `half-right` becomes `right-half`. Multi-select capable. (Not to be confused with Sublime's original transpose command that merely transposes the two characters on either side of the cursor.)
-- *Create AsciiDoc links* around selected text (kbd:[alt]+kbd:[L]). For example: `Star Wars` becomes ``<<````star-wars,Star Wars>>``. The generated anchor is guaranteed to be lower-case and use hyphens instead of spaces. Multi-select capable. TIP: Combine this with the transpose command, above, when turning a proper name into a link. (`Luke Skywalker` first becomes ``<<````luke-skywalker,Luke Skywalker>>``), then double click on the `luke-skywalker` and transpose it to move the last name first, thus: ``<<````skywalker-luke,Luke Skywalker>>``.)
-- *Create AsciiDoc index notation* around selected text (kbd:[ctrl]+kbd:[9], 9 being the same key as the left parenthesis). For example, `Star Wars` becomes ``(((````Star Wars)))``. Multi-select capable. Press the hotkey repeatedly to cycle through from no parenthesis to 3 parenthesis (concealed index), to 2 (visible "`flow`" index), to 1 (ordinary text), to none again.
+- *Create AsciiDoc links* around selected text (kbd:[alt]+kbd:[L]). For example: `Star Wars` becomes ``<<``star-wars,Star Wars``>>``. The generated anchor is guaranteed to be lower-case and use hyphens instead of spaces. Multi-select capable. TIP: Combine this with the transpose command, above, when turning a proper name into a link. (`Luke Skywalker` first becomes ``<<``luke-skywalker,Luke Skywalker``>>``), then double click on the `luke-skywalker` and transpose it to move the last name first, thus: ``<<``skywalker-luke,Luke Skywalker``>>``.)
+- *Create AsciiDoc index notation* around selected text (kbd:[ctrl]+kbd:[9], 9 being the same key as the left parenthesis). For example, `Star Wars` becomes +++(((Star Wars)))+++. Multi-select capable. Press the hotkey repeatedly to cycle through from no parenthesis to 3 parenthesis (concealed index), to 2 (visible "`flow`" index), to 1 (ordinary text), to none again.
 - Convert the selected text from CamelCase to *snake_case* (kbd:[ctrl]+kbd:[K], kbd:[ctrl]+kbd:[S]). Multi-select capable.
 - Convert the selected text from snake_case to *CamelCase* (kbd:[ctrl]+kbd:[K], kbd:[ctrl]+kbd:[C]). Multi-select capable.
 - Convert an inline quotation to an *AsciiDoc quote block* (kbd:[ctrl]+kbd:[U], kbd:[ctrl]+kbd:[Q]). E.g. `Eureka! -- Archimedes` becomes `[quote, Archimedes.]\nEureka!`.
@@ -30,7 +30,7 @@ These are the most heavily used commands:
 Invoke via Menu | AsciiDoc Tools.
 
 - A command that *removes any/all AsciiDoc links* from within the selected text (kbd:[ctrl]+kbd:[alt]+kbd:[L]).
-That is, ``<<````anchor,label>>`` becomes just "label").
+That is, `<`<anchor,label>`>` becomes just "label").
 For example, to remove all links from within an entire asciidoc file, use kbd:[ctrl]+kbd:[A] then kbd:[ctrl]+kbd:[alt]+kbd:[L].
 Multi-select capable.
 

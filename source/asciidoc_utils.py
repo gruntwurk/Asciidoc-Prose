@@ -4,6 +4,7 @@ AsciiDoc is being used for (whether it's journaling, manuscript writing,
 whatever).
 """
 import re
+from .prose_utils import collapse_whitespace
 
 ADOC_LINK = r"<<[-_A-Za-z0-9]+,([^>]*)>>"
 ADOC_HEADING = r"^(={1,5})\s+(.*)$"
@@ -13,6 +14,7 @@ ADOC_ANCHOR = r"^\[\[([-_A-Za-z0-9]+)\]\]$"
 BLANK_OR_COMMENT = r"^ *(// .*)?$"
 BYLINE = r"^by "
 
+
 def classify_adoc_syntax(line: str):
     """
     A quick-and-dirty method to parse a specific line of AsciiDoc text.
@@ -21,28 +23,22 @@ def classify_adoc_syntax(line: str):
         the argument for the command, if any (e.g. the indent level)
         the value, if any
     """
-    m = re.match(ADOC_ANCHOR, line)
-    if m:
-        return ("ANCHOR", None, m.group(1))
+    if m := re.match(ADOC_ANCHOR, line):
+        return ("ANCHOR", None, m[1])
 
-    m = re.match(ADOC_HEADING, line)
-    if m:
-        return ("HEADING", len(m.group(1)), m.group(2))
+    if m := re.match(ADOC_HEADING, line):
+        return ("HEADING", len(m[1]), m[2])
 
-    m = re.match(ADOC_BULLET, line)
-    if m:
-        return ("BULLET", len(m.group(1)), m.group(2))
+    if m := re.match(ADOC_BULLET, line):
+        return ("BULLET", len(m[1]), m[2])
 
-    m = re.match(ADOC_ORDERED, line)
-    if m:
-        return ("ORDERED", len(m.group(1)), m.group(2))
+    if m := re.match(ADOC_ORDERED, line):
+        return ("ORDERED", len(m[1]), m[2])
 
-    m = re.match(BLANK_OR_COMMENT, line)
-    if m:
+    if m := re.match(BLANK_OR_COMMENT, line):
         return ("WHITESPACE", None, None)
 
-    m = re.match(BYLINE, line)
-    if m:
+    if m := re.match(BYLINE, line):
         return ("BYLINE", None, line)
 
     return ("OTHER", None, line)
@@ -67,7 +63,7 @@ def adoc_fixup(txt: str) -> str:
     # convert m-dashes to AsciiDoc syntax
     txt = re.sub(r"—", "--", txt)
 
-    #Replace figure captions with id and title
+    # Replace figure captions with id and title
     txt = re.sub(r"^Figure (\d+)\s?(.*)", "[[fig-\\1]]\n.\\2\n", txt)
 
     # Replace references to figures with asciidoc xref
@@ -99,6 +95,7 @@ def adoc_fixup(txt: str) -> str:
 
     # AsciiDoctor can't handle m-dashes at the end of a quotation.
     txt = re.sub(r' *-- *`"', '{mdash}`"', txt)
+    return txt
 
 
 def opinionated_adoc_fixup(txt: str) -> str:
@@ -181,8 +178,6 @@ def asciidoctor_syntax_fixup(txt: str) -> str:
     return "\n".join(lines)
 
 
-
-
 def remove_links(old_text: str) -> str:
     """
     Remove AsciiDoc links ( "<<anchor,label>>" ==> "label" )
@@ -201,21 +196,20 @@ def auto_align_table_columns(text: str) -> str:
     def analyze(line):
         parts = line.split('|')
         for i, part in enumerate(parts[1:]):
-            l = len(part.strip())
+            width = len(part.strip())
             if i < len(col_widths):
-                col_widths[i] = max(col_widths[i], l)
+                col_widths[i] = max(col_widths[i], width)
             else:
-                col_widths.append(l)
+                col_widths.append(width)
 
     def align(line):
         parts = line.split('|')
         aligned_text = ''
         for i in range(len(col_widths)):
-            if i < len(parts) - 1:
-                part = parts[i + 1].strip()
-            else:
-                part = ''
-            aligned_text += '|' + padding + part + ' ' * (col_widths[i] - len(part)) + padding
+            part = parts[i + 1].strip() if i < len(parts) - 1 else ''
+            aligned_text += (
+                f'|{padding}{part}' + ' ' * (col_widths[i] - len(part)) + padding
+            )
         return aligned_text.rstrip()
 
     lines = text.split('\n')
@@ -234,11 +228,15 @@ def auto_align_table_columns(text: str) -> str:
 
 
 def extract_headings(lines, use_bullets=True, use_links=True):
+    """
+    This does the work for the static ToC command.
+    """
     contents = []
     current_anchor = ""
     seeking_byline = False
     for line in lines:
         command, argument, value = classify_adoc_syntax(line)
+        indent_level = argument if argument is int else 0
 
         if command == "ANCHOR":
             current_anchor = value
@@ -246,12 +244,12 @@ def extract_headings(lines, use_bullets=True, use_links=True):
 
         # If the line is a heading, add it to the ToC
         if command == "HEADING":
-            markup = "*" * argument + " " if use_bullets else ""
+            markup = "*" * int(indent_level) + " " if use_bullets else ""
             heading_text = value
             if use_links and current_anchor:
-                contents.append("%s<<%s,%s>>" % (markup, current_anchor, heading_text))
+                contents.append(f"{markup}<<{current_anchor},{heading_text}>>")
             else:
-                contents.append("%s %s" % (markup, heading_text))
+                contents.append(f"{markup} {heading_text}")
             current_anchor = ""
             seeking_byline = True
             continue
@@ -265,7 +263,7 @@ def extract_headings(lines, use_bullets=True, use_links=True):
 
         # If the line immediately after a heading is a byline, then add it to the end of the last ToC entry
         if seeking_byline and command == "BYLINE":
-            contents[len(contents)-1] += " " + value
+            contents[-1] += f" {value}"
     return contents
 
 
@@ -280,8 +278,7 @@ def unwrap_paragraphs(txt):
     paragraph = []
     lines = txt.splitlines()
     for line in lines:
-        line = line.rstrip()
-        if line:
+        if line := line.rstrip():
             paragraph.append(line)
         else:
             combined_paragraph = " ".join(paragraph)
@@ -303,9 +300,7 @@ def index_tag(identifier: str) -> str:
     """
     if not identifier:
         return ""
-    tokens = re.match(r"^(\(?)(.*?)(\)?)$",identifier)
-    if tokens[1]:
-        return tokens[2]
-    return "(((" + tokens[2] + ")))"
+    tokens = re.match(r"^(\(?)(.*?)(\)?)$", identifier)
+    return tokens[2] if tokens[1] else f"((({tokens[2]})))"
 
 

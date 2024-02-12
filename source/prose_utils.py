@@ -80,13 +80,18 @@ def collapse_whitespace(txt: str) -> str:
     return txt
 
 
-def generate_valid_anchor_token(descriptive_text: str) -> str:
+def generate_valid_anchor_token(descriptive_text: str, separator='-') -> str:
     """
     Converts the given descriptive text to a valid AsciiDoc anchor token
-    (i.e. containing only lowercase letters, dashes, and digits.)
+    (i.e. containing only lowercase letters, digits, dashes, and underscores.)
     """
-    block_id = re.sub(r' +', r'-', descriptive_text.lower().strip())
-    block_id = re.sub(r'[^-0-9a-z]', r'', block_id)
+    # Make it all lower case
+    block_id = descriptive_text.lower()
+    # Remove anything that's not a letter, digit, hyphen, underscore, or space,
+    # then strip leading and trailing spaces
+    block_id = re.sub(r'[^-0-9a-z _]', r'', block_id).strip()
+    # Replace spaces with dashes (or whatever separator is specified)
+    block_id = re.sub(r' +', separator, block_id)
     return block_id
 
 
@@ -124,9 +129,9 @@ def fix_fractions(txt: str) -> str:
 def fix_temperature_degrees(txt: str) -> str:
     # Standardize temperatures to use the degree symbol
     # e.g. "123 degrees Fahrenheit" -> "123{deg}F"
-    txt = re.sub(r"(\d+) *deg(\.|rees|s)? *fahrenheit","\1{deg}F", txt, flags=re.IGNORECASE)
-    txt = re.sub(r"(\d+) *deg(\.|rees|s)? *(celsius|centigrade)","\1{deg}C", txt, flags=re.IGNORECASE)
-    txt = re.sub(r"(\d+) *deg(\.|rees|s)?","\1{deg}", txt, flags=re.IGNORECASE)
+    txt = re.sub(r"(\d+) *deg(\.|rees|s)? *f(ahrenheit|\.|\b)", r"\1{deg}F", txt, flags=re.IGNORECASE)
+    txt = re.sub(r"(\d+) *deg(\.|rees|s)? *c(elsius|entigrade|\.|\b)", r"\1{deg}C", txt, flags=re.IGNORECASE)
+    txt = re.sub(r"(\d+) *deg(\.|rees|s)?", r"\1{deg}", txt, flags=re.IGNORECASE)
     return txt
 
 

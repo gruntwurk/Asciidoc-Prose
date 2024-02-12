@@ -15,7 +15,7 @@
   { "keys": ["ctrl+alt+l"],                   "command": "remove_links" },
   { "keys": ["shift+f6"],                     "command": "select_all_spelling_errors" },
   { "keys": ["alt+w"],                        "command": "toggle_setting", "args": {"setting": "word_wrap"} },
-  { "keys": ["ctrl+f12"],                     "command": "prompt_save_as" },
+  { "keys": ["ctrl+shift+s"],                 "command": "prompt_save_as" },
   { "keys": ["alt+l"],                        "command": "asciidoc_linkify" },
   { "keys": ["alt+a"],                        "command": "asciidoc_anchorify" },
   { "keys": ["alt+t"],                        "command": "transpose" },

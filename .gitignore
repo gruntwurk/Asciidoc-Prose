@@ -4,3 +4,4 @@
 /docs-src/index.html
 /README.html
 /Color_Schemes/*.chback
+/source/__pycache__/*.pyc

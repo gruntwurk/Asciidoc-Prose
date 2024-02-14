@@ -1,4 +1,6 @@
-import sublime, sublime_plugin
+import sublime
+import sublime_plugin
+from typing import Union
 from pathlib import Path
 import re
 
@@ -13,11 +15,12 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
     replacing the current selection that contains some sort of a query, with
     the results of the query).
     """
-    def run(self, edit):
-        self._edit = edit
-        self._run()
 
-    def find_local_file(self, filename) -> Path:
+    def run(self, edit, **kwargs):
+        self._edit = edit
+        self._run(**kwargs)
+
+    def find_local_file(self, filename) -> Union[Path, None]:
         """
         Search for the given file by name in one of these places:
         - The directory of the file being edited (if known)
@@ -29,17 +32,14 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
         possible_locations = []
         if self.view.file_name():
             current_file_dir = Path(self.view.file_name()).parent.resolve()
-            possible_locations.append(current_file_dir)
-            possible_locations.append(current_file_dir.parent.resolve())
-        for folder in self.view.window().folders():
-            possible_locations.append(Path(folder))
-        possible_locations.append(Path())
-        possible_locations.append(Path(__file__).parent.resolve())
+            possible_locations.extend((current_file_dir, current_file_dir.parent.resolve()))
+        possible_locations.extend(Path(folder) for folder in self.view.window().folders())
+        possible_locations.extend((Path(), Path(__file__).parent.resolve()))
         for test_path in possible_locations:
             result = (test_path / filename)
             if result.exists():
                 return result
-        sublime.error_message("Cannot find {} in {}".format(filename,possible_locations))
+        sublime.error_message(f"Cannot find {filename} in {possible_locations}")
         return None
 
     def load_config_contents(self, config_filename):
@@ -67,11 +67,10 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
                 inside_literal = not inside_literal
                 continue
             if not inside_literal:
-                m = re.match(r"\[+(\w*)\]+", line)
-                if m:
+                if m := re.match(r"\[+(\w*)\]+", line):
                     if results:
                         break
-                    current_section = m.group(1)
+                    current_section = m[1]
                     continue
             if current_section == section_name:
                 results.append(line.rstrip())
@@ -92,16 +91,11 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
         Returns a list of strings with the text in the selected region(s).
         If only one region is selected, it still returns a list (of one).
         """
-        results = []
-        for s in self.view.sel():
-            results.append(self.view.substr(s))
-        return results
+        return [self.view.substr(s) for s in self.view.sel()]
 
     def nothing_selected(self) -> bool:
         s = self.view.sel()
-        if len(s) > 1:
-            return False
-        return s[0].begin() == s[0].end()
+        return False if len(s) > 1 else s[0].begin() == s[0].end()
 
     def select_whole_file(self):
         """
@@ -119,9 +113,7 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
     def expand_selected_text_to_whole_lines(self):
         """
         """
-        new_selections = []
-        for s in self.view.sel():
-            new_selections.append(self.view.line(s))
+        new_selections = [self.view.line(s) for s in self.view.sel()]
         self.view.sel().clear()
         self.view.sel().add_all(new_selections)
 
@@ -166,7 +158,7 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
         # Search backwards for the first non-preamble line above the heading line
         while delineation_pt > 0:
             possible_preamble_line = self.view.substr(self.view.full_line(delineation_pt - 1))
-            classification, _ , _ = classifier(possible_preamble_line)
+            classification, _, _ = classifier(possible_preamble_line)
             print(classification)
             if classification not in ('ANCHOR', 'WHITESPACE'):
                 break
@@ -190,7 +182,7 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
         doc += "\n"
         self.unselect()
         self.view.replace(self._edit, sublime.Region(0, self.view.size()), doc)
-        self.view.show(self.view.size(),keep_to_left=True)
+        self.view.show(self.view.size(), keep_to_left=True)
 
     def replace_selected_text(self, region, doc):
         """
@@ -201,9 +193,9 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
             doc = "\n".join(doc)
         # print ("Replacing {}-{} with {} bytes".format(region.a, region.b, len(doc)))
         self.view.replace(self._edit, region, doc)
-        self.view.show(region.a,keep_to_left=True)
+        self.view.show(region.a, keep_to_left=True)
 
-    def process_all_regions(self, process_callback, as_snippet=False, unselect_after=False):
+    def process_all_regions(self, process_callback, as_snippet=False, unselect_after=False, **kwargs):
         """
         The given callback function is applied to all of the selected region(s),
         one at a time. The current contents of the region are passed into the
@@ -220,9 +212,9 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
         """
         region_count = len(self.view.sel())
         for i, region in enumerate(self.view.sel()):
-            self.view.window().status_message("Processing region {} of {}".format(i, region_count))
+            self.view.window().status_message(f"Processing region {i} of {region_count}")
             original_text = self.view.substr(region)
-            new_text = process_callback(original_text)
+            new_text = process_callback(original_text, **kwargs)
             if as_snippet and region_count == 1:
                 self.replace_selected_text(region, "")
                 self.view.run_command("insert_snippet", {"contents": new_text})
@@ -252,6 +244,5 @@ class AbstractUtilTextCommand(sublime_plugin.TextCommand):
             pt = s[0].end()
 
         s.clear()
-        s.add(sublime.Region(pt,pt))
-        self.view.show(pt,keep_to_left=True)
-
+        s.add(sublime.Region(pt, pt))
+        self.view.show(pt, keep_to_left=True)

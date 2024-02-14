@@ -1,4 +1,5 @@
-import sublime, sublime_plugin  # noqa
+import sublime
+import sublime_plugin  # noqa
 import re
 from .source.prose_utils import (camel_case, collapse_whitespace,
                                  pluck_out_match, snake_case, transpose,
@@ -28,7 +29,7 @@ class StaticTableOfContentsCommand(AbstractUtilTextCommand):
     def _run(self):
         contents = extract_headings(self.get_file_content().splitlines())
         self.unselect("SOF")
-        self.replace_selected_text(sublime.Region(0,0),"\n".join(contents)+"\n\n")
+        self.replace_selected_text(sublime.Region(0, 0), "\n".join(contents) + "\n\n")
 
 
 # ###########################################################################
@@ -61,6 +62,7 @@ class AsciidocRenumberChaptersCommand(AbstractUtilTextCommand):
         == 9
     Whatever format it finds, it will replicate.
     """
+
     def _run(self):
         self.process_whole_file(adoc_renumber_chapters)
 
@@ -75,6 +77,7 @@ class SelectAllSpellingErrorsCommand(sublime_plugin.TextCommand):
     current document. Useful for analyzing commonly misspelled words,
     made-up character names, etc.
     """
+
     def run(self, edit):
         regions = []
         while True:
@@ -107,6 +110,7 @@ class AsciidocSelectSection(AbstractUtilTextCommand):
 
     Works with multi-select.
     """
+
     def run(self, edit):
         self.expand_selected_text_to_whole_subsection(classify_adoc_syntax)
 
@@ -122,11 +126,11 @@ class AsciidocProseFixupCommand(AbstractUtilTextCommand):
     pandoc --from=docx --to=asciidoc --wrap=none --atx-headers --extract-media=extracted-media $FILENAME.docx > $FILENAME..adoc
 
     """
+
     def _run(self):
         if self.nothing_selected():
             self.select_whole_file()
         self.process_all_regions(opinionated_adoc_fixup)
-
 
 
 class AsciidocUpdateSyntaxCommand(AbstractUtilTextCommand):
@@ -137,6 +141,7 @@ class AsciidocUpdateSyntaxCommand(AbstractUtilTextCommand):
     * Changes `` '' quotations to "` `"
 
     """
+
     def _run(self):
         if self.nothing_selected():
             self.select_whole_file()
@@ -151,6 +156,7 @@ class RecipeStandardizerCommand(AbstractUtilTextCommand):
     """
     Adjusts a recipe that was copied and pasted from elsewhere to be more AsciiDoc friendly.
     """
+
     def _run(self):
         if self.nothing_selected():
             self.select_whole_file()
@@ -165,6 +171,7 @@ class AsciidocSceneBreakFixupCommand(AbstractUtilTextCommand):
     """
     Converts all lines that look like a scene break to a horizontal rule (''')
     """
+
     def _run(self):
         self.process_all_regions(fix_scene_breaks)
 
@@ -178,6 +185,7 @@ class AsciidocQuoteNotationCommand(AbstractUtilTextCommand):
     Converts the selection to a Quote Block. If it finds one or more m-dashes
     or tildes, it assumes that the attribution follows.
     """
+
     def _run(self):
         if self.nothing_selected():
             self.expand_selected_text_to_whole_lines()
@@ -193,6 +201,7 @@ class AsciidocAlignTable(AbstractUtilTextCommand):
     Adjusts the spacing within the lines of a table so that the pipe separators
     all line up.
     """
+
     def _run(self):
         self.process_all_regions(auto_align_table_columns)
 
@@ -239,6 +248,7 @@ class AsciidocLinkify(sublime_plugin.TextCommand):
     "Apple Pie" -> <<apple-pie,Apple Pie>>
     Works with multiple selections.
     """
+
     def run(self, edit):
         self._edit = edit
         for i, region in enumerate(self.view.sel()):
@@ -256,6 +266,7 @@ class AsciidocAnchorify(sublime_plugin.TextCommand):
     "Apple Pie" -> [[apple-pie]] (on the line above).
     Works with multiple selections.
     """
+
     def run(self, edit):
         self._edit = edit
         for i, region in enumerate(self.view.sel()):
@@ -285,6 +296,7 @@ class UnwrapParagraphsCommand(AbstractUtilTextCommand):
     This command undoes that, combining the text of each paragraph onto a
     single line, leaving no blank lines.
     """
+
     def _run(self):
         self.expand_selected_text_to_whole_lines()
         self.process_all_regions(unwrap_paragraphs)
@@ -324,7 +336,6 @@ class AsciidocFromRstCommand(AbstractUtilTextCommand):
             variables[name] = definition
         txt = re.sub(self.VARIABLE_PATTERN, "", txt, flags=re.MULTILINE)
 
-
         # --- The following conversions can be done en masse ---
 
         # Monospaced
@@ -340,10 +351,10 @@ class AsciidocFromRstCommand(AbstractUtilTextCommand):
         while True:
             m = re.search(r"\|(.*?)\|", txt)
             if m:
-                ref = m.group(1).replace("\n"," ")
+                ref = m.group(1).replace("\n", " ")
                 if ref in variables:
-                    proper_ref = ref.replace(" ","_")
-                    txt = pluck_out_match(txt, m, "{"+proper_ref+"}")
+                    proper_ref = ref.replace(" ", "_")
+                    txt = pluck_out_match(txt, m, "{" + proper_ref + "}")
                 else:
                     txt = pluck_out_match(txt, m, ref)
             else:
@@ -353,9 +364,9 @@ class AsciidocFromRstCommand(AbstractUtilTextCommand):
         while True:
             m = re.search(r"`([^`]*?)`_", txt)
             if m:
-                ref = m.group(1).replace("\n"," ")
+                ref = m[1].replace("\n", " ")
                 if ref in footnotes:
-                    txt = pluck_out_match(txt, m, footnotes[ref]+"["+ref+"]")
+                    txt = pluck_out_match(txt, m, footnotes[ref] + "[" + ref + "]")
                 else:
                     txt = pluck_out_match(txt, m, ref)
             else:
@@ -366,7 +377,7 @@ class AsciidocFromRstCommand(AbstractUtilTextCommand):
             if m:
                 ref = m.group(1)
                 if ref in footnotes:
-                    txt = pluck_out_match(txt, m, footnotes[ref]+"["+ref+"]")
+                    txt = pluck_out_match(txt, m, footnotes[ref] + "[" + ref + "]")
                 else:
                     txt = pluck_out_match(txt, m, ref)
             else:
@@ -388,24 +399,23 @@ class AsciidocFromRstCommand(AbstractUtilTextCommand):
         lines = txt.splitlines()
         current_anchor = ""
         seeking_byline = False
-        for i,line in enumerate(lines):
+        for i, line in enumerate(lines):
 
             # H2
-            m = re.match(r"^(=+)$",line)
-            if m and i>0:
-                previous_line = lines[i-1]
+            m = re.match(r"^(=+)$", line)
+            if m and i > 0:
+                previous_line = lines[i - 1]
                 if len(previous_line) == len(line):
-                    lines[i-1] = "== " + previous_line
+                    lines[i - 1] = "== " + previous_line
                     lines[i] = ""
 
             # H3
-            m = re.match(r"^(-+)$",line)
-            if m and i>0:
-                previous_line = lines[i-1]
+            m = re.match(r"^(-+)$", line)
+            if m and i > 0:
+                previous_line = lines[i - 1]
                 if len(previous_line) == len(line):
-                    lines[i-1] = "=== " + previous_line
+                    lines[i - 1] = "=== " + previous_line
                     lines[i] = ""
-
 
         txt = "\n".join(lines)
 
@@ -415,7 +425,7 @@ class AsciidocFromRstCommand(AbstractUtilTextCommand):
         txt = re.sub(r":: *$", ":", txt, flags=re.MULTILINE)
 
         if variables:
-            txt = "\n".join([":{}: {}".format(ref.replace(" ","_"),variables[ref]) for ref in variables]) + "\n\n" + txt
+            txt = "\n".join([":{}: {}".format(ref.replace(" ", "_"), variables[ref]) for ref in variables]) + "\n\n" + txt
 
         return txt
 
@@ -423,11 +433,11 @@ class AsciidocFromRstCommand(AbstractUtilTextCommand):
 #                                                               Journal Entry
 # ###########################################################################
 
-class JournalEntryCommand(AbstractUtilTextCommand):
-    def _run(self):
-        self.expand_selected_text_to_whole_lines()
-        self.process_all_regions(journal_entry, as_snippet=True, unselect_after=True)
 
+class JournalEntryCommand(AbstractUtilTextCommand):
+    def _run(self, **kwargs):
+        self.expand_selected_text_to_whole_lines()
+        self.process_all_regions(journal_entry, as_snippet=True, unselect_after=True, **kwargs)
 
 
 # ###########################################################################
@@ -438,7 +448,7 @@ class AsciidocGatherDroppedImagesCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         self._edit = edit
         filenames = self._gather_images()
-        results = ["image::{}[]".format(f) for f in filenames]
+        results = [f"image::{f}[]" for f in filenames]
         self._replace_selected_text(results)
         self._unselect()
 
@@ -452,7 +462,7 @@ class AsciidocGatherDroppedImagesCommand(sublime_plugin.TextCommand):
         s = self.view.sel()
         pt = s[0].end()
         s.clear()
-        s.add(sublime.Region(pt,pt))
+        s.add(sublime.Region(pt, pt))
 
     def _gather_images(self) -> list:
         results = []
@@ -461,6 +471,3 @@ class AsciidocGatherDroppedImagesCommand(sublime_plugin.TextCommand):
                 results.append(sheet.file_name())
                 sheet.close()
         return results
-
-
-
